@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;24K_SelfBalancingRobot/Core/Src/macro.h&apos; to &apos;Macro.h&apos;" description="Rename resource &apos;macro.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/macro.h" name="Macro.h" stamp="1706893605313" updateReferences="true"/>
+</session>

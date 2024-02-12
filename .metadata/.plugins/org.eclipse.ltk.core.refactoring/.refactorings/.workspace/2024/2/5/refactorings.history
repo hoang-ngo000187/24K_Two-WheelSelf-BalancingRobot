@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;24K_SelfBalancingRobot&apos;" deleteContents="true" description="Delete resource &apos;24K_SelfBalancingRobot&apos;" element1="/24K_SelfBalancingRobot" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1706897791720"/>&#x0A;<refactoring comment="Delete resource &apos;24K_SelfBalancingRobot/Core/Src/AppControlMPU6050&apos;" deleteContents="false" description="Delete resource &apos;24K_SelfBalancingRobot/Core/Src/AppControlMPU6050&apos;" element1="/24K_SelfBalancingRobot/Core/Src/AppControlMPU6050" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1706966929517"/>
+</session>
