@@ -17,7 +17,9 @@ n16CounterBotRight
 n8DirRight
 u8Counter20usLeft
 n32StepLeft
-x_1
-x_filter_now
 ptrMPU6050Data
-fRoll
+fRoll_Current
+fRoll_Accel
+fIntegralValue
+fOffset
+n32StepRight

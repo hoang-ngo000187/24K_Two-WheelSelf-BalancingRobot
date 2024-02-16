@@ -34,6 +34,7 @@
 /* USER CODE BEGIN PD */
 const float RAD_TO_DEG = 57.295779513;
 #define Square(x)	x*x
+#define ALPHA 0.98
 
 // Direction Pin and Step Pin for Left Motor
 #define DIR_PIN_LEFT	GPIO_PIN_1	// PA1
@@ -101,21 +102,12 @@ INT16 n16CounterBotLeft = 0;
 INT16 n16CounterTopRight = 0;
 INT16 n16CounterBotRight = 0;
 
-FLOAT fControlSignal = 0;
-FLOAT fErrorSignal_Current = 0; // Error signal is the angle of deviation from the vertical of the robot (y axis)
-FLOAT fErrorSignal_Before = 0;
-
-FLOAT fOffset = 0;
-
-FLOAT KP = 0;
-FLOAT KI = 0;
-FLOAT KD = 0;
-
-FLOAT fIntegralValue = 0;
-FLOAT fDerivativeValue = 0;
-
 MPU6050_Data* ptrMPU6050Data;
-FLOAT fRoll = 0;
+FLOAT fRoll_Accel = 0;
+FLOAT fRoll_Gryro = 0;
+FLOAT fRoll_Current = 0;
+FLOAT fRoll_Before = 0;
+FLOAT fOffset = 0;
 
 /* USER CODE END 0 */
 
@@ -164,12 +156,28 @@ int main(void)
 
 #if DEBUG_NEMA17
 	  AOSpeedMotorLeft(100);
+	  AOSpeedMotorRight(100);
 #endif
 
 #if DEBUG_MPU6050
 	  AppControl_MPU6050ReadData();
 	  ptrMPU6050Data = AppControl_MPU6050GetData();
 	  fRoll = RAD_TO_DEG * (atan((ptrMPU6050Data->fAccel_Y)/(sqrt(Square(ptrMPU6050Data->fAccel_X) + Square(ptrMPU6050Data->fAccel_Z)))));
+#endif
+
+#if DEBUG_JUSTBALANCE
+	  AppControl_MPU6050ReadData();
+	  ptrMPU6050Data = AppControl_MPU6050GetData();
+
+	  fRoll_Accel = RAD_TO_DEG * (atan((ptrMPU6050Data->fAccel_Y)/(sqrt(Square(ptrMPU6050Data->fAccel_X) + Square(ptrMPU6050Data->fAccel_Z)))));
+    fRoll_Gryro = (ptrMPU6050Data->fGyro_X)*0.004;
+    //fRoll -= 1;
+    fRoll_Current = ALPHA*(fRoll_Before + fRoll_Gryro) + (1-ALPHA)*(fRoll_Accel);
+    fRoll_Before = fRoll_Current;
+    
+    fOffset = -3.15;
+    AppControl_PIDLeftRightMotor(fRoll_Current, fOffset);
+    HAL_Delay(4);
 #endif
 	  /* USER CODE END WHILE */
 

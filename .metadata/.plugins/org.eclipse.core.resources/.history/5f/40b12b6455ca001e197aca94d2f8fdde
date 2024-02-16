@@ -1,0 +1,96 @@
+/****************************************************************************************************************************
+
+ * @author: Ngo Kien Hoang
+ * @email: hoang.ngo000187@gmail.com
+ *
+ * This file contains the library for PID Controler.
+
+ ****************************************************************************************************************************/
+
+/****************************************************************************************************************************
+ * INCLUDE
+ ****************************************************************************************************************************/
+#include "AppInterface.h"
+
+FLOAT fControlSignal = 0;
+FLOAT fErrorSignal_Current = 0; // Error signal is the angle of deviation from the vertical of the robot (y axis)
+FLOAT fErrorSignal_Before = 0;
+
+FLOAT fOffset = 0;
+
+FLOAT KP = 0;
+FLOAT KI = 0;
+FLOAT KD = 0;
+
+FLOAT fIntegralValue = 0;
+FLOAT fDerivativeValue = 0;
+
+// Nonlinear coefficient
+FLOAT M_Left = 0;
+FLOAT M_Right = 0;
+
+FLOAT AppControl_PIDControler(FLOAT Angle, FLOAT Offset)
+{
+	fErrorSignal_Current = Angle + Offset;
+
+	/* Intergral of e(t)dt (0-->t) */
+	fIntegralValue += fErrorSignal_Current;
+
+	/* Derivative: d(e(t))/dt */
+	fDerivativeValue = fErrorSignal_Current - fErrorSignal_Before;
+
+	/* Calculate control signal */
+	fControlSignal = (KP)*fErrorSignal_Current + (KI)*fIntegralValue + (KD)*(fDerivativeValue);
+
+	/* Update error signal */
+	fErrorSignal_Before = fErrorSignal_Current;
+
+	return fControlSignal;
+}
+
+FLOAT fOutputLeft = 0;
+FLOAT fOutputRight = 0;
+
+void AppControl_PIDLeftRightMotor(void)
+{
+	static FLOAT fOutput;
+
+	fOutput = AppControl_PIDControler();
+
+	if(fOutput < -400)
+	{
+		fOutput = -400;
+	}
+	else if(fOutput > 400)
+	{
+		fOutput = 400;
+	}
+
+	fOutputLeft = fOutput;
+	fOutputRight = fOutput;
+
+	// Nonlinear equation between robot deflection angle and robot velocity
+	if (fOutput > 0)
+	{
+		M_Left = 405 - (1/(fOutputLeft + 9))*5500;
+		M_Right = 405 - (1/(fOutputRight + 9))*5500;
+
+		/*
+		 * If fOutputRight: 1 --> 400:
+		 * 		+ fOutputRight = 1 --> M_Right = -1.45
+		 * 		+ fOutputRight = 1 --> M_Right = -1.45
+		 * 		+ fOutputRight = 1 --> M_Right = -1.45
+		 * 		+ fOutputRight = 1 --> M_Right = -1.45
+		 */
+	}
+	else if (fOutput < 0)
+	{
+		M_Left = -405 - (1/(fOutputLeft - 9))*5500;
+		M_Right = -405 - (1/(fOutputRight - 9))*5500;
+	}
+	else
+	{
+		M_Left = 0;
+		M_Right = 0;
+	}
+}

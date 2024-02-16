@@ -38,18 +38,6 @@ typedef struct _MPU6050_Data{
 /****************************************************************************************************************************
  * PROTOTYPE
  ****************************************************************************************************************************/
-INT16 AppControl_Get_Accel_X_RAW(void);
-INT16 AppControl_Get_Accel_Y_RAW(void);
-INT16 AppControl_Get_Accel_Z_RAW(void);
-INT16 AppControl_Get_Gyro_X_RAW(void);
-INT16 AppControl_Get_Gyro_Y_RAW(void);
-INT16 AppControl_Get_Gyro_Z_RAW(void);
-FLOAT AppControl_Get_Accel_X(void);
-FLOAT AppControl_Get_Accel_Y(void);
-FLOAT AppControl_Get_Accel_Z(void);
-FLOAT AppControl_Get_Gyro_X(void);
-FLOAT AppControl_Get_Gyro_Y(void);
-FLOAT AppControl_Get_Gyro_Z(void);
 void AppControl_MPU6050_Init(void);
 void AppControl_MPU6050ReadData();
 void AppControl_MPU6050_Read_Accel(void);

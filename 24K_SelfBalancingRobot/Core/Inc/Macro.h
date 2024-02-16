@@ -19,3 +19,4 @@ typedef int64_t		INT64;
 typedef uint64_t	UINT64;
 
 typedef float       FLOAT;
+typedef double      DOUBLE;

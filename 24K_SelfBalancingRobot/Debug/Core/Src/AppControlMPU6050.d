@@ -1,6 +1,6 @@
 Core/Src/AppControlMPU6050.o: ../Core/Src/AppControlMPU6050.c \
  ../Core/Inc/AppInterface.h ../Core/Inc/Macro.h \
- ../Core/Inc/AppControlMPU6050.h \
+ ../Core/Inc/AppControlMPU6050.h ../Core/Inc/AppControlPID.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -30,6 +30,7 @@ Core/Src/AppControlMPU6050.o: ../Core/Src/AppControlMPU6050.c \
 ../Core/Inc/AppInterface.h:
 ../Core/Inc/Macro.h:
 ../Core/Inc/AppControlMPU6050.h:
+../Core/Inc/AppControlPID.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h:
