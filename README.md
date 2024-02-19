@@ -1,4 +1,4 @@
-![image](https://github.com/hoang-ngo000187/24K_Two-WheelSelf-BalancingRobot/assets/120404345/28a7e2f5-fc2a-4ee0-826a-7b371e669038)# 24K_Two-WheelSelf-BalancingRobot
+# 24K_Two-WheelSelf-BalancingRobot
 **This is a project to balance the robot based on the PID control algorithm.**
 
 **HARDWARE: **
